@@ -1,6 +1,6 @@
 using System;
 
-namespace CoreApiApp
+namespace CoreApiApp.Models
 {
     public class WeatherForecast
     {

@@ -30,7 +30,7 @@ namespace CoreApiApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AppDbContext context, RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
         {
             if (env.IsDevelopment())
             {
@@ -43,6 +43,8 @@ namespace CoreApiApp
 
             app.UseAuthorization();
             app.UseAuthentication();
+
+            PreSeeder.Seeder(context, roleManager, userManager).Wait();
 
             app.UseEndpoints(endpoints =>
             {
