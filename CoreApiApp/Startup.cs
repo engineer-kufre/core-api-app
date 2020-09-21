@@ -23,9 +23,13 @@ namespace CoreApiApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            //register DbContextPool and refer DB connection string
             services.AddDbContextPool<AppDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("DbConnection"))
                 );
+
+            //register identity service
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
         }
 
@@ -42,6 +46,8 @@ namespace CoreApiApp
             app.UseRouting();
 
             app.UseAuthorization();
+
+            //allows identity perform authentication
             app.UseAuthentication();
 
             PreSeeder.Seeder(context, roleManager, userManager).Wait();
