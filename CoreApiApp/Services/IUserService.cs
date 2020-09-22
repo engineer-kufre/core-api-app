@@ -8,5 +8,6 @@ namespace CoreApiApp.Services
     public interface IUserService
     {
         Task<UserManagerResponse> RegisterUserAsync(RegisterDto dto);
+        Task<UserManagerResponse> LoginUserAsync(LoginDto dto);
     }
 }
