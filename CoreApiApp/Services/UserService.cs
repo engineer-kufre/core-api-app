@@ -25,51 +25,73 @@ namespace CoreApiApp.Services
             _configuration = configuration;
         }
 
-        public Task<UserManagerResponse> LoginUserAsync(LoginDto dto)
-        {
-            throw new NotImplementedException();
-        }
-
         //method to login a user
-        //public async Task<UserManagerResponse> LoginUserAsync(LoginDto model)
-        //{
-        //    //search database for a user with inputted email
-        //    var user = await _userManager.FindByEmailAsync(model.Email);
+        public async Task<UserManagerResponse> LoginUserAsync(LoginDto model)
+        {
+            //search database for a user with inputted email
+            var user = await _userManager.FindByEmailAsync(model.Email);
 
-        //    //check that a user with that email exists in the database
-        //    if (user == null)
-        //    {
-        //        return new UserManagerResponse
-        //        {
-        //            Message = "Email does not exist!",
-        //            IsSuccess = false
-        //        };
-        //    }
+            //check that a user with that email exists in the database
+            if (user == null)
+            {
+                return new UserManagerResponse
+                {
+                    Message = "Email does not exist!",
+                    IsSuccess = false
+                };
+            }
 
-        //    //check that returned user's password matches that inputted
-        //    var result = await _userManager.CheckPasswordAsync(user, model.Password);
+            //check that returned user's password matches that inputted
+            var result = await _userManager.CheckPasswordAsync(user, model.Password);
 
-        //    //return response if password is invalid
-        //    if (!result)
-        //    {
-        //        return new UserManagerResponse
-        //        {
-        //            Message = "Invalid Password!",
-        //            IsSuccess = false
-        //        };
-        //    }
+            //return response if password is invalid
+            if (!result)
+            {
+                return new UserManagerResponse
+                {
+                    Message = "Invalid Password!",
+                    IsSuccess = false
+                };
+            }
+            else //generate token
+            {
+                //create claims array
+                var claims = new[]
+                {
+                new Claim("Email", model.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.Id)
+                };
 
-        //    //var claims = new[]
-        //    //{
-        //    //    new Claim("Email", model.Email),
-        //    //    new Claim(ClaimTypes.NameIdentifier, user.Id)
-        //    //};
+                //obtain JWT secret key to encrypt token
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
 
-        //    //var token = new JwtSecurityToken(
-        //    //    issuer: _configuration["Auth"]
-        //    //    )
+                //generate signin credentials
+                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
-        //}
+                //create security token descriptor(builds the token)
+                var securityTokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(claims),
+                    Expires = DateTime.Now.AddDays(1), //how many days before token expires
+                    SigningCredentials = creds
+                };
+
+                //build token handler
+                var tokenHandler = new JwtSecurityTokenHandler();
+
+                //create token
+                var token = tokenHandler.CreateToken(securityTokenDescriptor);
+
+                var tokenAsString = tokenHandler.WriteToken(token);
+
+                return new UserManagerResponse
+                {
+                    Message = tokenAsString,
+                    IsSuccess = true,
+                    TokenExpiryDate = token.ValidTo
+                }; 
+            }
+        }
 
         //method to register a user
         public async Task<UserManagerResponse> RegisterUserAsync(RegisterDto model)
@@ -123,6 +145,42 @@ namespace CoreApiApp.Services
             }
         }
 
-       
+        ////method to generate token
+        //[AllowAnonymous]
+        //[HttpPost("GetToken")]
+        //public IActionResult GetToken([FromBody] EmailDto model)
+        //{
+        //    //search database for a user with inputted email
+        //    var user = _userManager.Users.FirstOrDefault(u => u.Email == model.Email);
+
+        //    //create claims
+        //    var claims = new[]
+        //    {
+        //        new Claim("Email", model.Email),
+        //        new Claim(ClaimTypes.NameIdentifier, user.Id)
+        //    };
+
+        //    //obtain JWT secret key
+        //    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
+
+        //    //generate signin credentials
+        //    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+        //    //create security token descriptor(builds the token)
+        //    var securityTokenDescriptor = new SecurityTokenDescriptor
+        //    {
+        //        Subject = new ClaimsIdentity(claims),
+        //        Expires = DateTime.Now.AddDays(1), //how many days before token expires
+        //        SigningCredentials = creds
+        //    };
+
+        //    //build token handler
+        //    var tokenHandler = new JwtSecurityTokenHandler();
+
+        //    //create token
+        //    var token = tokenHandler.CreateToken(securityTokenDescriptor);
+
+        //    return Ok(new { token = tokenHandler.WriteToken(token) });
+        //}
     }
 }

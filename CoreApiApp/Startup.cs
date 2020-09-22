@@ -68,10 +68,10 @@ namespace CoreApiApp
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
             //allows identity perform authentication
             app.UseAuthentication();
+
+            app.UseAuthorization();
 
             PreSeeder.Seeder(context, roleManager, userManager).Wait();
 

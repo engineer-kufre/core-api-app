@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace CoreApiApp.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [ApiController]
     [Route("[controller]")]
     public class UserController : ControllerBase
@@ -34,6 +35,8 @@ namespace CoreApiApp.Controllers
             _configuration = configuration;
         }
 
+        // /user/register
+        [AllowAnonymous]
         [HttpPost("Register")]
         public async Task<IActionResult> RegisterAsync([FromBody]RegisterDto model)
         {
@@ -56,13 +59,37 @@ namespace CoreApiApp.Controllers
             }
         }
 
+        // /user/login
+        [AllowAnonymous]
+        [HttpPost("Login")]
+        public async Task<IActionResult> LoginAsync([FromBody]LoginDto model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _userService.LoginUserAsync(model);
+
+                if (result.IsSuccess)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest(result);
+                }
+            }
+            else
+            {
+                return BadRequest("Some model properties are not valid");
+            }
+        }
+
         //[HttpGet]
         //public IActionResult GetAllLoggedInUsers()
         //{
 
         //}
 
-        [Authorize]
+        // /user/getallregisteredusers
         [HttpGet("GetAllRegisteredUsers")]
         public IActionResult GetAllRegisteredUsers()
         {
@@ -86,44 +113,5 @@ namespace CoreApiApp.Controllers
             
             return Ok(result);
         }
-
-        //method to generate token
-        [HttpPost("GetToken")]
-        public IActionResult GetToken([FromBody] EmailDto model)
-        {
-            //search database for a user with inputted email
-            var user = _userManager.Users.FirstOrDefault(u => u.Email == model.Email);
-
-            //create claims
-            var claims = new[]
-            {
-                new Claim("Email", model.Email),
-                new Claim(ClaimTypes.NameIdentifier, user.Id)
-            };
-
-            //obtain JWT secret key
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
-
-            //generate signin credentials
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-
-            //create security token descriptor
-            var securityTokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1), //how many days before token expires
-                SigningCredentials = creds
-            };
-
-            //build token handler
-            var tokenHandler = new JwtSecurityTokenHandler();
-
-            //create token
-            var token = tokenHandler.CreateToken(securityTokenDescriptor);
-
-            return Ok(new { token = tokenHandler.WriteToken(token) });
-
-        }
-
     }
 }
