@@ -121,8 +121,6 @@ C:\Users\Kufreabasi Ita\Desktop\Coding\Decagon Training\Tasks\My Repo\core-api-a
 C:\Users\Kufreabasi Ita\Desktop\Coding\Decagon Training\Tasks\My Repo\core-api-app\CoreApiApp\obj\Debug\netcoreapp3.1\CoreApiApp.csprojAssemblyReference.cache
 C:\Users\Kufreabasi Ita\Desktop\Coding\Decagon Training\Tasks\My Repo\core-api-app\CoreApiApp\obj\Debug\netcoreapp3.1\CoreApiApp.AssemblyInfoInputs.cache
 C:\Users\Kufreabasi Ita\Desktop\Coding\Decagon Training\Tasks\My Repo\core-api-app\CoreApiApp\obj\Debug\netcoreapp3.1\CoreApiApp.AssemblyInfo.cs
-C:\Users\Kufreabasi Ita\Desktop\Coding\Decagon Training\Tasks\My Repo\core-api-app\CoreApiApp\obj\Debug\netcoreapp3.1\CoreApiApp.csproj.CoreCompileInputs.cache
-C:\Users\Kufreabasi Ita\Desktop\Coding\Decagon Training\Tasks\My Repo\core-api-app\CoreApiApp\obj\Debug\netcoreapp3.1\CoreApiApp.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Kufreabasi Ita\Desktop\Coding\Decagon Training\Tasks\My Repo\core-api-app\CoreApiApp\obj\Debug\netcoreapp3.1\CoreApiApp.RazorTargetAssemblyInfo.cache
 C:\Users\Kufreabasi Ita\Desktop\Coding\Decagon Training\Tasks\My Repo\core-api-app\CoreApiApp\obj\Debug\netcoreapp3.1\CoreApiApp.csproj.CopyComplete
 C:\Users\Kufreabasi Ita\Desktop\Coding\Decagon Training\Tasks\My Repo\core-api-app\CoreApiApp\obj\Debug\netcoreapp3.1\staticwebassets\CoreApiApp.StaticWebAssets.Manifest.cache
@@ -130,3 +128,6 @@ C:\Users\Kufreabasi Ita\Desktop\Coding\Decagon Training\Tasks\My Repo\core-api-a
 C:\Users\Kufreabasi Ita\Desktop\Coding\Decagon Training\Tasks\My Repo\core-api-app\CoreApiApp\obj\Debug\netcoreapp3.1\CoreApiApp.dll
 C:\Users\Kufreabasi Ita\Desktop\Coding\Decagon Training\Tasks\My Repo\core-api-app\CoreApiApp\obj\Debug\netcoreapp3.1\CoreApiApp.pdb
 C:\Users\Kufreabasi Ita\Desktop\Coding\Decagon Training\Tasks\My Repo\core-api-app\CoreApiApp\obj\Debug\netcoreapp3.1\CoreApiApp.genruntimeconfig.cache
+C:\Users\Kufreabasi Ita\Desktop\Coding\Decagon Training\Tasks\My Repo\core-api-app\CoreApiApp\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Kufreabasi Ita\Desktop\Coding\Decagon Training\Tasks\My Repo\core-api-app\CoreApiApp\obj\Debug\netcoreapp3.1\CoreApiApp.csproj.CoreCompileInputs.cache
+C:\Users\Kufreabasi Ita\Desktop\Coding\Decagon Training\Tasks\My Repo\core-api-app\CoreApiApp\obj\Debug\netcoreapp3.1\CoreApiApp.MvcApplicationPartsAssemblyInfo.cache
