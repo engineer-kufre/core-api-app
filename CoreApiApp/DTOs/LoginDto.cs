@@ -2,6 +2,7 @@
 
 namespace CoreApiApp.DTOs
 {
+    //model for Login Data Transfer Object
     public class LoginDto
     {
         [Required]

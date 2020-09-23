@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CoreApiApp.DTOs
 {
+    //model for a Returned User Data Transfer Object
     public class ReturnedUser
     {
         public string FirstName { get; set; }

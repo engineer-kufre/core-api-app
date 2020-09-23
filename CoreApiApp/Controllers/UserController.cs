@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using CoreApiApp.DTOs;
+﻿using CoreApiApp.DTOs;
 using CoreApiApp.Models;
 using CoreApiApp.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -13,7 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CoreApiApp.Controllers
 {
@@ -35,10 +29,11 @@ namespace CoreApiApp.Controllers
             _configuration = configuration;
         }
 
+        //method to register a new user
         // /user/register
         [AllowAnonymous]
         [HttpPost("Register")]
-        public async Task<IActionResult> RegisterAsync([FromBody]RegisterDto model)
+        public async Task<IActionResult> RegisterAsync([FromBody] RegisterDto model)
         {
             if (ModelState.IsValid)
             {
@@ -59,10 +54,11 @@ namespace CoreApiApp.Controllers
             }
         }
 
+        //method to login an existing user
         // /user/login
         [AllowAnonymous]
         [HttpPost("Login")]
-        public async Task<IActionResult> LoginAsync([FromBody]LoginDto model)
+        public async Task<IActionResult> LoginAsync([FromBody] LoginDto model)
         {
             if (ModelState.IsValid)
             {
@@ -83,11 +79,11 @@ namespace CoreApiApp.Controllers
             }
         }
 
+        //method to fetch the details of the loggedin user
         // /user/getloggedinuserdetails
         [HttpGet("GetLoggedInUserDetails")]
         public async Task<IActionResult> GetLoggedInUserDetailsAsync()
         {
-            //var loggedInUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var user = await _userManager.GetUserAsync(User);
             var result = new ReturnedUser
             {
@@ -99,6 +95,7 @@ namespace CoreApiApp.Controllers
             return Ok(result);
         }
 
+        //method to fetch all registered users
         // /user/getallregisteredusers
         [HttpGet("GetAllRegisteredUsers")]
         public IActionResult GetAllRegisteredUsers()
@@ -120,7 +117,7 @@ namespace CoreApiApp.Controllers
                 };
                 result.Add(returnedUser);
             }
-            
+
             return Ok(result);
         }
     }

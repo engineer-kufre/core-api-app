@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CoreApiApp.Services
 {
+    //model for objects bearing userManager operation responses
     public class UserManagerResponse
     {
         public string Message { get; set; }

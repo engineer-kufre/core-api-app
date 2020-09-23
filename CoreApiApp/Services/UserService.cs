@@ -1,7 +1,6 @@
 ﻿using CoreApiApp.DTOs;
 using CoreApiApp.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -89,7 +88,7 @@ namespace CoreApiApp.Services
                     Message = tokenAsString,
                     IsSuccess = true,
                     TokenExpiryDate = token.ValidTo
-                }; 
+                };
             }
         }
 
@@ -103,7 +102,7 @@ namespace CoreApiApp.Services
             }
 
             //confirm password
-            if(model.Password != model.ConfirmPassword)
+            if (model.Password != model.ConfirmPassword)
             {
                 return new UserManagerResponse
                 {
@@ -141,10 +140,8 @@ namespace CoreApiApp.Services
                     Message = "User was not created",
                     IsSuccess = false,
                     Errors = result.Errors.Select(e => e.Description)
-                }; 
+                };
             }
         }
-
-        
     }
 }
