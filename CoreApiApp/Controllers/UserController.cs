@@ -83,11 +83,21 @@ namespace CoreApiApp.Controllers
             }
         }
 
-        //[HttpGet]
-        //public IActionResult GetLoggedInUserDetails()
-        //{
-
-        //}
+        // /user/getloggedinuserdetails
+        [HttpGet("GetLoggedInUserDetails")]
+        public async Task<IActionResult> GetLoggedInUserDetailsAsync()
+        {
+            //var loggedInUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var user = await _userManager.GetUserAsync(User);
+            var result = new ReturnedUser
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                CreatedOn = user.CreatedOn
+            };
+            return Ok(result);
+        }
 
         // /user/getallregisteredusers
         [HttpGet("GetAllRegisteredUsers")]
