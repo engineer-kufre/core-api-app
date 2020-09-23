@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CoreApiApp.Controllers
@@ -98,14 +99,16 @@ namespace CoreApiApp.Controllers
         //method to fetch all registered users
         // /user/getallregisteredusers
         [HttpGet("GetAllRegisteredUsers")]
-        public IActionResult GetAllRegisteredUsers()
+        public IActionResult GetAllRegisteredUsers(int page)
         {
+            int zeroIndexedPage = page;
+            int start = (zeroIndexedPage - 1) * 5;
             //get all users from AspNetUsers table
-            var users = _userManager.Users;
+            var users = _userManager.Users.Skip(start).Take(5);
 
-            var result = new List<ReturnedUser>();
+            var listOfReturnedUsers = new List<ReturnedUser>();
 
-            //create each DTO object for each user and pass into result list
+            //create each DTO object for each user and pass into listOfReturnedUsers list
             foreach (var user in users)
             {
                 var returnedUser = new ReturnedUser
@@ -115,8 +118,14 @@ namespace CoreApiApp.Controllers
                     Email = user.Email,
                     CreatedOn = user.CreatedOn
                 };
-                result.Add(returnedUser);
+                listOfReturnedUsers.Add(returnedUser);
             }
+
+            var result = new PaginatedReturnedUsersDto
+            {
+                CurrentPage = $"Page {page}",
+                ReturnedUsers = listOfReturnedUsers
+            };
 
             return Ok(result);
         }
