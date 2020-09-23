@@ -145,42 +145,6 @@ namespace CoreApiApp.Services
             }
         }
 
-        ////method to generate token
-        //[AllowAnonymous]
-        //[HttpPost("GetToken")]
-        //public IActionResult GetToken([FromBody] EmailDto model)
-        //{
-        //    //search database for a user with inputted email
-        //    var user = _userManager.Users.FirstOrDefault(u => u.Email == model.Email);
-
-        //    //create claims
-        //    var claims = new[]
-        //    {
-        //        new Claim("Email", model.Email),
-        //        new Claim(ClaimTypes.NameIdentifier, user.Id)
-        //    };
-
-        //    //obtain JWT secret key
-        //    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
-
-        //    //generate signin credentials
-        //    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-
-        //    //create security token descriptor(builds the token)
-        //    var securityTokenDescriptor = new SecurityTokenDescriptor
-        //    {
-        //        Subject = new ClaimsIdentity(claims),
-        //        Expires = DateTime.Now.AddDays(1), //how many days before token expires
-        //        SigningCredentials = creds
-        //    };
-
-        //    //build token handler
-        //    var tokenHandler = new JwtSecurityTokenHandler();
-
-        //    //create token
-        //    var token = tokenHandler.CreateToken(securityTokenDescriptor);
-
-        //    return Ok(new { token = tokenHandler.WriteToken(token) });
-        //}
+        
     }
 }

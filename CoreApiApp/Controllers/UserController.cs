@@ -84,7 +84,7 @@ namespace CoreApiApp.Controllers
         }
 
         //[HttpGet]
-        //public IActionResult GetAllLoggedInUsers()
+        //public IActionResult GetLoggedInUserDetails()
         //{
 
         //}
