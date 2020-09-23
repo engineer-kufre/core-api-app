@@ -99,7 +99,7 @@ namespace CoreApiApp.Controllers
         //method to fetch all registered users
         // /user/getallregisteredusers
         [HttpGet("GetAllRegisteredUsers")]
-        public IActionResult GetAllRegisteredUsers(int page)
+        public IActionResult GetAllRegisteredUsers(int page = 1)
         {
             int zeroIndexedPage = page;
             int start = (zeroIndexedPage - 1) * 5;
