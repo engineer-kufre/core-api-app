@@ -73,6 +73,7 @@ namespace CoreApiApp
 
             app.UseAuthorization();
 
+            //add preseeder to pipeline
             PreSeeder.Seeder(context, roleManager, userManager).Wait();
 
             app.UseEndpoints(endpoints =>
